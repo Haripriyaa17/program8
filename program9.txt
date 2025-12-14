@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
-const API_URL = "http://localhost:5000/employees";
+const API_URL="http://localhost:5000/employees";
 
-function App() {
-    const [employees, setEmployees] = useState([]);
-    const [currentEmployee, setCurrentEmployee] = useState(null);
+function App(){
+    const [employees,setEmployees]=useState([]);
+    const [currentEmployee, setCurrentEmployee]=useState(null);
 
     useEffect(() => {
         fetchEmployees();
     }, []);
 
-    const fetchEmployees = async () => {
-        const response = await axios.get(API_URL);
+    const fetchEmployees=async () => {
+        const response=await axios.get(API_URL);
         setEmployees(response.data);
     };
 
-    const handleSave = async (employee) => {
+    const handleSave=async (employee) => {
         if (employee.id) {
             await axios.put(`${API_URL}/${employee.id}`, employee);
         } else {
@@ -27,20 +27,20 @@ function App() {
         setCurrentEmployee(null);
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete=async (id) => {
         await axios.delete(`${API_URL}/${id}`);
         fetchEmployees();
     };
 
-    const handleAdd = () => {
+    const handleAdd=() => {
         setCurrentEmployee({ firstName: '', lastName: '', email: '' });
     };
 
-    const handleEdit = (employee) => {
+    const handleEdit=(employee) => {
         setCurrentEmployee(employee);
     };
     
-    if (currentEmployee) {
+    if (currentEmployee){
         return <EmployeeForm employee={currentEmployee} onSave={handleSave} onCancel={() => setCurrentEmployee(null)} />;
     }
 
@@ -75,15 +75,15 @@ function App() {
     );
 }
 
-const EmployeeForm = ({ employee, onSave, onCancel }) => {
+const EmployeeForm=({ employee, onSave, onCancel }) => {
     const [formData, setFormData] = useState({ ...employee });
 
-    const handleSubmit = (e) => {
+    const handleSubmit=(e) => {
         e.preventDefault();
         onSave(formData);
     };
 
-    const handleChange = (e) => {
+    const handleChange=(e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
@@ -104,18 +104,18 @@ export default App;
 
 
 {
-  "employees": [
+  "employees":[
     {
-      "id": 1,
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com"
+      "id":1,
+      "firstName":"John",
+      "lastName":"Doe",
+      "email":"john.doe@example.com"
     },
     {
-      "id": 2,
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "email": "jane.smith@example.com"
+      "id":2,
+      "firstName":"Jane",
+      "lastName":"Smith",
+      "email":"jane.smith@example.com"
     }
   ]
 }
